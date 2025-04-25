@@ -25,6 +25,17 @@ app.get("/", async (req, res) => {
     }
 });
 
+app.get("/getTask/:id", async (req, res) => {
+    const id = req.params.id;
+    TaskModel.findById({id})
+    try {
+        const tasks = await TaskModel.findById(req.params.id);
+        res.json(tasks);
+    } catch (err) {
+        res.status(500).json({ message: "Failed to retrieve tasks", error: err.message });
+    }
+});
+
 app.post("/createTask", async (req, res) => {
     try {
         const task = new TaskModel(req.body);
@@ -33,6 +44,15 @@ app.post("/createTask", async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(400).json({ message: "Failed to create task", error: err.message });
+    }
+});
+
+app.put("/updateTask/:id", async (req, res) => {
+    try {
+        const updated = await TaskModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        res.json(updated);
+    } catch (err) {
+        res.status(400).json({ message: "Failed to update task", error: err.message });
     }
 });
 

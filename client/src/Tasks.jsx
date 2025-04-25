@@ -41,7 +41,7 @@ function Tasks () {
                                     <td>{task.status}</td>
                                     <td>{formatDate(task.dueDate)}</td>
                                     <td>
-                                        <Link to="/update" className="btn btn-warning">Edit</Link>
+                                        <Link to={`/update/${task._id}`} className="btn btn-warning">Edit</Link>
                                         <button className="btn btn-danger">Delete</button>
                                     </td>
                                 </tr>

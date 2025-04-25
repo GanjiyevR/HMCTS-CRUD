@@ -43,7 +43,7 @@ function CreateTask() {
                         <label className="form-label">Status</label>
                         <select className="form-select" value={status} onChange={(e) => setStatus(e.target.value)}>
                             <option value="Incomplete">Incomplete</option>
-                            <option value="Incomplete">In Progress</option>
+                            <option value="In Progress">In Progress</option>
                             <option value="Complete">Complete</option>
                         </select>
                     </div>

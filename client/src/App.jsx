@@ -16,7 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Tasks />}></Route>
         <Route path="/create" element={<CreateTask />}></Route>
-        <Route path="/update" element={<UpdateTask />}></Route>
+        <Route path="/update/:id" element={<UpdateTask />}></Route>
       </Routes>
       </BrowserRouter>
      </div>

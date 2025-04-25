@@ -1,16 +1,43 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
 
 function UpdateTask() {
+    const {id} = useParams();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [status, setStatus] = useState('Incomplete');
     const [dueDate, setDueDate] = useState('');
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    useEffect(() => {
+        const fetchTasks = async () => {
+            try {
+                const response = await axios.get(`http://localhost:5000/getTask/${id}`);
+                const task = response.data;
+                setTitle(task.title);
+                setDescription(task.description);
+                setStatus(task.status);
+                setDueDate(task.dueDate);
+            } catch (err) {
+                console.error("Error fetching tasks:", err.message);
+            }
+        };
+        fetchTasks();
+    }, []);
+
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        navigate('/');
+
+        const updatedTask = {title, description, status, dueDate}
+        try {
+            await axios.put(`http://localhost:5000/updateTask/${id}`, updatedTask);
+            alert("Task updated successfully!");
+            navigate('/');
+        } catch (err) {
+            console.error("Error updating task:", err.message);
+            alert("Failed to update task. Please try again.");
+        }
     };
 
     return (
@@ -32,7 +59,7 @@ function UpdateTask() {
                         <label className="form-label">Status</label>
                         <select className="form-select" value={status} onChange={(e) => setStatus(e.target.value)}>
                             <option value="Incomplete">Incomplete</option>
-                            <option value="Incomplete">In Progress</option>
+                            <option value="In Progress">In Progress</option>
                             <option value="Complete">Complete</option>
                         </select>
                     </div>
