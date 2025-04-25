@@ -13,9 +13,11 @@ function App() {
     <>
      <div>
       <BrowserRouter>
-        <Routes paths="/" element={ <Tasks />}></Routes>
-        <Routes paths="/create" element={<CreateTask />}></Routes>
-        <Routes paths="/update" element={<UpdateTask />}></Routes>
+      <Routes>
+        <Route path="/" element={<Tasks />}></Route>
+        <Route path="/create" element={<CreateTask />}></Route>
+        <Route path="/update" element={<UpdateTask />}></Route>
+      </Routes>
       </BrowserRouter>
      </div>
     </>
