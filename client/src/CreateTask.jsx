@@ -27,7 +27,10 @@ function CreateTask() {
     return (
         <div className="d-flex vh-100 bg-dark align-items-center justify-content-center">
             <div className="w-50 bg-white rounded p-3">
-                <h3 className="mb-3">Create a New Task</h3>
+            <div className="d-flex justify-content-between align-items-center mb-3">
+            <h3 className="mb-0">Create a New Task</h3>
+            <button className="btn-close" onClick={() => navigate('/')} aria-label="Close"></button>
+            </div>        
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3">
                         <label className="form-label">Title (required)</label>

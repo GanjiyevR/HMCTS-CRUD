@@ -15,10 +15,11 @@ function UpdateTask() {
             try {
                 const response = await axios.get(`http://localhost:5000/getTask/${id}`);
                 const task = response.data;
+                const isoDate = new Date(task.dueDate).toISOString().split("T")[0];
                 setTitle(task.title);
                 setDescription(task.description);
                 setStatus(task.status);
-                setDueDate(task.dueDate);
+                setDueDate(isoDate);
             } catch (err) {
                 console.error("Error fetching tasks:", err.message);
             }
@@ -43,7 +44,10 @@ function UpdateTask() {
     return (
         <div className="d-flex vh-100 bg-dark align-items-center justify-content-center">
             <div className="w-50 bg-white rounded p-3">
-                <h3 className="mb-3">Task Updater</h3>
+            <div className="d-flex justify-content-between align-items-center mb-3">
+            <h3 className="mb-0">Task Updater</h3>
+            <button className="btn-close" onClick={() => navigate('/')} aria-label="Close"></button>
+            </div>           
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3">
                         <label className="form-label">Title (required)</label>
