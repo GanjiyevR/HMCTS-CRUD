@@ -30,7 +30,7 @@ function Tasks () {
                                     <td>{task.Status}</td>
                                     <td>{formatDate(task.DueDate)}</td>
                                     <td>
-                                        <button className="btn btn-warning">Edit</button>
+                                        <Link to="/update" className="btn btn-warning">Edit</Link>
                                         <button className="btn btn-danger">Delete</button>
                                     </td>
                                 </tr>
