@@ -16,6 +16,15 @@ mongoose.connect("mongodb://127.0.0.1:27017/crud")
         console.error("MongoDB connection error:", err);
     });
 
+app.get("/", async (req, res) => {
+    try {
+        const tasks = await TaskModel.find({});
+        res.json(tasks);
+    } catch (err) {
+        res.status(500).json({ message: "Failed to retrieve tasks", error: err.message });
+    }
+});
+
 app.post("/createTask", async (req, res) => {
     try {
         const task = new TaskModel(req.body);

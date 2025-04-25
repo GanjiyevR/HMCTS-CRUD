@@ -1,12 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 function Tasks () {
-    const [tasks, setTasks] = useState([{
-        Title: "Feed the Cat", Description: "He is hungry", Status: "Incomplete", DueDate: Date("2025-04-26")}
-    ])
-
+    const [tasks, setTasks] = useState([])
     const formatDate = (date) => new Date(date).toLocaleDateString();
+
+    useEffect(() => {
+        const fetchTasks = async () => {
+            try {
+                const response = await axios.get("http://localhost:5000");
+                setTasks(response.data);
+            } catch (err) {
+                console.error("Error fetching tasks:", err.message);
+            }
+        };
+        fetchTasks();
+    }, []);
+    
     return (
         <div className="d-flex vh-100 bg-dark align-items-center justify-content-center">
             <div className="w-50 bg-white rounded p-3">
@@ -24,11 +35,11 @@ function Tasks () {
                     <tbody>
                         {
                             tasks.map((task) => {
-                                return <tr>
-                                    <td>{task.Title}</td>
-                                    <td>{task.Description}</td>
-                                    <td>{task.Status}</td>
-                                    <td>{formatDate(task.DueDate)}</td>
+                                return <tr key={task._id}>
+                                    <td>{task.title}</td>
+                                    <td>{task.description}</td>
+                                    <td>{task.status}</td>
+                                    <td>{formatDate(task.dueDate)}</td>
                                     <td>
                                         <Link to="/update" className="btn btn-warning">Edit</Link>
                                         <button className="btn btn-danger">Delete</button>
