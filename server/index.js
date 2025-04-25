@@ -8,7 +8,7 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-mongoose.connect("mongodb://localhost:27017/yourdb")
+mongoose.connect("mongodb://127.0.0.1:27017/crud")
     .then(() => {
         console.log("MongoDB connected");
     })

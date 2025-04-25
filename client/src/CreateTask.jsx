@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'
 
 function CreateTask() {
     const [title, setTitle] = useState('');
@@ -8,9 +9,19 @@ function CreateTask() {
     const [dueDate, setDueDate] = useState('');
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        navigate('/');
+        const taskData = { title, description, status, dueDate };
+
+        try {
+            const response = await axios.post("http://localhost:5000/createTask", taskData);
+            console.log("Task created successfully:", response.data );
+            navigate('/')
+        } catch (error) {
+            console.error("Error creating task:", error.response ? error.response.data : error.message);
+            alert("Failed to create task. Please try again.");
+        }
+
     };
 
     return (
