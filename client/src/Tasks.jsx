@@ -10,6 +10,7 @@ function Tasks () {
     return (
         <div className="d-flex vh-100 bg-dark align-items-center justify-content-center">
             <div className="w-50 bg-white rounded p-3">
+              <h3 className="mb-3">Task List</h3>
                 <table className="table">
                     <thead>
                         <tr>
@@ -37,7 +38,7 @@ function Tasks () {
                         }
                     </tbody>
                 </table>
-                <Link to="/create" className="btn btn-success">Add a new Task</Link>
+                <Link to="/create" className="btn btn-success w-100">Add a new Task</Link>
             </div>
         </div>
     )
