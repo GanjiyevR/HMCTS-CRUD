@@ -6,6 +6,19 @@ function Tasks () {
     const [tasks, setTasks] = useState([])
     const formatDate = (date) => new Date(date).toLocaleDateString();
 
+    const handleDelete = async (id) => {
+        const confirmDelete = window.confirm("Are you sure you want to delete this task?");
+        if (!confirmDelete) return;
+    
+        try {
+            await axios.delete(`http://localhost:5000/deleteTask/${id}`);
+            setTasks(tasks.filter(task => task._id !== id));
+        } catch (err) {
+            console.error("Error deleting task:", err.message);
+            alert("Failed to delete task.");
+        }
+    };
+
     useEffect(() => {
         const fetchTasks = async () => {
             try {
@@ -42,7 +55,7 @@ function Tasks () {
                                     <td>{formatDate(task.dueDate)}</td>
                                     <td>
                                         <Link to={`/update/${task._id}`} className="btn btn-warning">Edit</Link>
-                                        <button className="btn btn-danger">Delete</button>
+                                        <button className="btn btn-danger ms-1" onClick={() => handleDelete(task._id)}>Delete</button>
                                     </td>
                                 </tr>
                             })

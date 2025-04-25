@@ -56,6 +56,18 @@ app.put("/updateTask/:id", async (req, res) => {
     }
 });
 
+app.delete("/deleteTask/:id", async (req, res) => {
+    try {
+        const deletedTask = await TaskModel.findByIdAndDelete(req.params.id);
+        if (!deletedTask) {
+            return res.status(404).json({ message: "Task not found" });
+        }
+        res.json({ message: "Task deleted successfully" });
+    } catch (err) {
+        res.status(500).json({ message: "Failed to delete task", error: err.message });
+    }
+});
+
 app.listen(5000, () => {
     console.log("Server is running")
 })
